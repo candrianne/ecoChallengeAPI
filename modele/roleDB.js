@@ -1,0 +1,23 @@
+const {getUser} = require('./userDB');
+const {getAdmin} = require('./adminDB');
+const {compareHash} = require('../utils/utils');
+
+module.exports.getRole = async (client, email, password) => {
+    const promises = [];
+    const promiseUser = getUser(email, client);
+    const promiseManager = getAdmin(email, client);
+    promises.push(promiseUser, promiseManager);
+    const values = await Promise.all(promises);
+    const userRow = values[0].rows[0];
+    const adminRow = values[1].rows[0];
+
+    console.log(password, userRow.password);
+
+    if(userRow !== undefined && await compareHash(password, userRow.password)) {
+        return {userType: "client", value: userRow};
+    } else if (adminRow !== undefined && await compareHash(password, adminRow.password)) {
+        return {userType: "manager", value: adminRow};
+    } else {
+        return {userType: "inconnu", value: null}
+    }
+};
