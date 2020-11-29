@@ -8,7 +8,6 @@ module.exports.createUser = async(client, firstName, lastName, email, password, 
 };
 
 module.exports.getUser = async(email, client) => {
-    console.log(email);
     return await client.query(`
         SELECT * FROM "User" WHERE "email" = $1`, [email]
     );

@@ -22,14 +22,13 @@ module.exports.inscriptionUser = async(req, res) => {
 
 module.exports.getUser = async(req, res) => {
     const client = await pool.connect();
-    const email = req.query.email;
+    const email = req.params.email;
 
     try {
-        if(isNaN(id)) {
+        if(!email.contains("@")) {
             res.sendStatus(400);
         } else {
             const {rows : users} = await UserDB.getUser(email, client);
-            console.log(users[0]);
             const user = users[0];
             if(user !== undefined) {
                 res.json(user);
