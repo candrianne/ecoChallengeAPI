@@ -12,9 +12,9 @@ module.exports.getRole = async (client, email, password) => {
     const adminRow = values[1].rows[0];
 
     if(userRow !== undefined && await compareHash(password, userRow.password)) {
-        return {userType: "client", value: userRow};
+        return {userType: "user", value: userRow};
     } else if (adminRow !== undefined && await compareHash(password, adminRow.password)) {
-        return {userType: "manager", value: adminRow};
+        return {userType: "admin", value: adminRow};
     } else {
         return {userType: "inconnu", value: null}
     }

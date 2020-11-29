@@ -15,7 +15,7 @@ module.exports.login = async(req, res) => {
             const {userType, value} = result;
             if (userType === "inconnu") {
                 res.sendStatus(404);
-            } else if (userType === "manager") {
+            } else if (userType === "admin") {
                 const {id, login} = value;
                 const payload = {status: userType, value: {id, login}};
                 const token = jwt.sign(
@@ -33,7 +33,7 @@ module.exports.login = async(req, res) => {
                     process.env.SECRET_TOKEN,
                     {expiresIn: '1d'}
                 );
-                res.json({jwt : token});
+                res.json({jwt :token});
             }
         } catch (e) {
             console.log(e);
