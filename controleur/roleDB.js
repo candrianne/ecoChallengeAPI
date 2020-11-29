@@ -33,7 +33,7 @@ module.exports.login = async(req, res) => {
                     process.env.SECRET_TOKEN,
                     {expiresIn: '1d'}
                 );
-                res.json(token);
+                res.json({jwt : token});
             }
         } catch (e) {
             console.log(e);
