@@ -31,7 +31,7 @@ module.exports.getUser = async(req, res) => {
             const {rows : users} = await UserDB.getUser(email, client);
             console.log(users[0]);
             const user = users[0];
-            if(user) {
+            if(user !== undefined) {
                 res.json(user);
             } else {
                 res.sendStatus(404);
