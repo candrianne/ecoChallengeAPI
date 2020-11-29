@@ -23,7 +23,7 @@ module.exports.login = async(req, res) => {
                     process.env.SECRET_TOKEN,
                     {expiresIn: '1d'}
                 );
-                res.json(token);
+                res.json({jwt : token});
 
             } else {
                 const {id, email, firstName} = value;
