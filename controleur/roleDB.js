@@ -22,12 +22,12 @@ module.exports.login = async(req, res) => {
                     payload,
                     process.env.SECRET_TOKEN,
                     {expiresIn: '1d'}
-                );
+                );  
                 res.json({jwt : token});
 
             } else {
-                const {id, email, firstname} = value;
-                const payload = {status: userType, value: {id, email, firstname}};
+                const {id, email, firstname, lastname} = value;
+                const payload = {status: userType, value: {id, email, firstname, lastname}};
                 const token = jwt.sign(
                     payload,
                     process.env.SECRET_TOKEN,
