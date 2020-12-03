@@ -8,4 +8,4 @@ router.post('/', UserControleur.inscriptionUser);
 router.get('/:email',UserControleur.getUser);
 //router.patch('/', JWTMiddleWare.identification, UserControleur.updateUser);
 
-module.exports = router;    
+module.exports = router;
