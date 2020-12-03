@@ -14,9 +14,8 @@ module.exports.getAllUserChallenges = async(req, res) => {
             res.sendStatus(400);
         } else {
             const {rows: challenges} = await ChallengeDB.getChallenges(id, client);
-            const challenge = challenges[0];
-            if(challenge !== undefined){
-                res.json(challenge);
+            if(challenges !== undefined){
+                res.json(challenges);
             } else {
                 res.sendStatus(404);
             }
