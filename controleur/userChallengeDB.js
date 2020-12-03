@@ -1,5 +1,5 @@
 const pool = require('../modele/database');
-const ChallengeDB = require('../modele/challengeDB');
+const UserChallengeDB = require('../modele/userChallengeDB');
 require("dotenv").config();
 const process = require('process');
 const jwt = require('jsonwebtoken');
@@ -13,7 +13,7 @@ module.exports.getAllUserChallenges = async(req, res) => {
         if(isNaN(id)){
             res.sendStatus(400);
         } else {
-            const {rows: challenges} = await ChallengeDB.getChallenges(id, client);
+            const {rows: challenges} = await UserChallengeDB.getChallenges(id, client);
             if(challenges !== undefined){
                 res.json(challenges);
             } else {
