@@ -13,7 +13,7 @@ module.exports.getAllUserChallenges = async(req, res) => {
         if(isNaN(id)){
             res.sendStatus(400);
         } else {
-            const {rows: challenges} = await UserChallengeDB.getChallenges(id, client);
+            const {rows: challenges} = await UserChallengeDB.getAllChallenges(id, client);
             if(challenges !== undefined){
                 res.json(challenges);
             } else {

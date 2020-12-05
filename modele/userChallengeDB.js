@@ -1,4 +1,4 @@
-module.exports.getChallenges = async(id, client) => {
+module.exports.getAllChallenges = async(id, client) => {
     return await client.query(`
         SELECT UserChallenge.startdate, UserChallenge.enddate, Challenge.name, DifficultyLevel.score
         FROM UserChallenge
