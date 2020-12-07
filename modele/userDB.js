@@ -16,7 +16,7 @@ module.exports.getUser = async(email, client) => {
 module.exports.updateUser = async(client, id, firstName, lastName, email, password, birthYear) => {
     const params = [];
     const querySet = [];
-    let query = `UPDATE "User" SET`;
+    let query = `UPDATE "User" SET `;
 
     if(firstName !== undefined) {
         params.push(firstName);
