@@ -37,6 +37,7 @@ module.exports.getUser = async(req, res) => {
             }
         }
     } catch(e) {
+        res.json(e);
         res.sendStatus(500);
     } finally {
         client.release();
