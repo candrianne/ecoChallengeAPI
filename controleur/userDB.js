@@ -42,3 +42,57 @@ module.exports.getUser = async(req, res) => {
         client.release();
     }
 };
+
+module.exports.updateUser = async(req, res) => {
+    if(req.session){
+        const userObj = req.session;
+        const toUpdate = req.body;
+        const newData = {};
+        let doUpdate = false;
+
+        if(
+            toUpdate.email !== undefined ||
+            toUpdate.firstname !== undefined ||
+            toUpdate.lastname !== undefined ||
+            toUpdate.photo !== undefined ||
+            toUpdate.password !== undefined ||
+            toUpdate.birthyear !== undefined
+        ){
+            doUpdate = true;
+        }
+
+        if(doUpdate){
+            newData.email = toUpdate.email;
+            newData.firstName = toUpdate.firstname;
+            newData.lastName = toUpdate.lastname;
+            newData.photo = toUpdate.photo;
+            newData.password = toUpdate.password;
+            newData.birthYear = toUpdate.birthyear;
+
+            const client = await pool.connect();
+            try{
+                await UserDB.updateUser(
+                    client,
+                    userObj.id,
+                    newData.firstName,
+                    newData.lastName,
+                    newData.email,
+                    newData.password,
+                    newData.birthYear
+                );
+                res.sendStatus(204);
+            }
+            catch (e) {
+                console.log(e);
+                res.sendStatus(500);
+            } finally {
+                client.release();
+            }
+        } else {
+            res.sendStatus(400);
+        }
+
+    } else {
+        res.sendStatus(401);
+    }
+};
