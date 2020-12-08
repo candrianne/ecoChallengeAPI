@@ -78,6 +78,7 @@ module.exports.updateUser = async(req, res) => {
                     newData.firstName,
                     newData.lastName,
                     newData.email,
+                    newData.photo,
                     newData.password,
                     newData.birthYear
                 );

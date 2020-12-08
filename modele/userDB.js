@@ -13,7 +13,7 @@ module.exports.getUser = async(email, client) => {
     );
 };
 
-module.exports.updateUser = async(client, id, firstName, lastName, email, password, birthYear) => {
+module.exports.updateUser = async(client, id, firstName, lastName, email, photo, password, birthYear) => {
     const params = [];
     const querySet = [];
     let query = `UPDATE "User" SET `;
@@ -29,6 +29,10 @@ module.exports.updateUser = async(client, id, firstName, lastName, email, passwo
     if(email !== undefined) {
         params.push(email);
         querySet.push(`email = $${params.length}`);
+    }
+    if(photo !== undefined) {
+        params.push(photo);
+        querySet.push(`photo = $${params.length}`);
     }
     if(password !== undefined) {
         params.push(await getHash(password));
