@@ -26,3 +26,32 @@ module.exports.getAllUserChallenges = async(req, res) => {
         client.release();
     }
 };
+
+module.exports.resumeOrPause = async(req, res)  => {
+    if(req.session) {
+        const userId = req.session.id;
+        const challengeId = parseInt(req.body.challengeId);
+        const action = req.body.action;
+
+        if(action && challengeId && (action === "resume" || action === "pause")) {
+            const client = await pool.connect();
+            try {
+                if(action === "resume") {
+                    await UserChallengeDB.resumeUserChallenge(userId, challengeId, client);
+                    res.sendStatus(204);
+                } else {
+                    await UserChallengeDB.pauseUserChallenge(userId, challengeId, client);
+                }
+            } catch(e) {
+                console.log(e);
+                res.sendStatus(500);
+            } finally {
+                client.release();
+            }
+        } else {
+            res.sendStatus(400);
+        }
+    } else {
+        res.sendStatus(401)
+    }
+}

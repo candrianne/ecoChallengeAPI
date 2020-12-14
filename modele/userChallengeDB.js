@@ -7,3 +7,20 @@ module.exports.getAllChallenges = async(id, client) => {
         WHERE UserChallenge.userid = $1`, [id]
     );
 };
+
+module.exports.resumeUserChallenge = async(userId, challengeId, client) => {
+    return await client.query(`
+        UPDATE UserChallenge
+        SET pausedate = enddate,
+        enddate = NULL
+        WHERE challengeid = $1 AND userid = $2`,[challengeId, userId]
+    );
+}
+
+module.exports.pauseUserChallenge = async(userId, challengeId, client) => {
+    return await client.query(`
+        UPDATE UserChallenge
+        SET enddate = NULL
+        WHERE challengeid = $1 AND userid = $2`,[challengeId, userId]
+    );
+}
