@@ -41,6 +41,7 @@ module.exports.resumeOrPause = async(req, res)  => {
                     res.sendStatus(204);
                 } else {
                     await UserChallengeDB.pauseUserChallenge(userId, challengeId, client);
+                    res.sendStatus(204);
                 }
             } catch(e) {
                 console.log(e);

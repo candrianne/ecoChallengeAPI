@@ -7,6 +7,5 @@ const router = new Router;
 router.post('/', UserControleur.inscriptionUser);
 router.patch('/', JWTMiddleWare.identification, UserControleur.updateUser);
 router.get('/:email',UserControleur.getUser);
-//router.patch('/', JWTMiddleWare.identification, UserControleur.updateUser);
 
 module.exports = router;

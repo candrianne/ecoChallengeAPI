@@ -25,7 +25,7 @@ module.exports.getUser = async(req, res) => {
     const email = req.params.email;
 
     try {
-        if(!email.contains("@")) {
+        if(!email.includes("@")) {
             res.sendStatus(400);
         } else {
             const {rows : users} = await UserDB.getUser(email, client);
