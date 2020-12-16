@@ -7,9 +7,9 @@ module.exports.createUser = async(client, firstName, lastName, email, password, 
     );
 };
 
-module.exports.getUser = async(email, client) => {
+module.exports.getUser = async(id, client) => {
     return await client.query(`
-        SELECT * FROM "User" WHERE "email" = $1`, [email]
+        SELECT * FROM "User" WHERE id = $1`, [id]
     );
 };
 
@@ -20,11 +20,11 @@ module.exports.updateUser = async(client, id, firstName, lastName, email, photo,
 
     if(firstName !== undefined) {
         params.push(firstName);
-        querySet.push(`firstname = $${params.length}`);
+        querySet.push(`firstName = $${params.length}`);
     }
     if(lastName !== undefined) {
         params.push(lastName);
-        querySet.push(`lastname = $${params.length}`);
+        querySet.push(`lastName = $${params.length}`);
     }
     if(email !== undefined) {
         params.push(email);
@@ -40,7 +40,7 @@ module.exports.updateUser = async(client, id, firstName, lastName, email, photo,
     }
     if(birthYear !== undefined) {
         params.push(birthYear);
-        querySet.push(`birthyear = $${params.length}`);
+        querySet.push(`birthYear = $${params.length}`);
     }
 
     if(params.length > 0) {

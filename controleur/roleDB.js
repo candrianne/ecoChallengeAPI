@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken');
 
 module.exports.login = async(req, res) => {
     const {email, password} = req.body;
-    if(email === undefined || password === undefined){
+    if(email === undefined || password === undefined) {
         res.sendStatus(400);
     } else {
         const client = await pool.connect();
@@ -26,8 +26,8 @@ module.exports.login = async(req, res) => {
                 res.json({jwt : token});
 
             } else {
-                const {id, email, firstname, lastname, photo} = value;
-                const payload = {status: userType, value: {id, email, firstname, lastname, photo}};
+                const {id, email, firstName, lastName, photo} = value;
+                const payload = {status: userType, value: {id, email, firstName, lastName, photo}};
                 const token = jwt.sign(
                     payload,
                     process.env.SECRET_TOKEN,

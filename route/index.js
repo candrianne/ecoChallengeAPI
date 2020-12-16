@@ -3,10 +3,14 @@ const RoleRouter = require('./role');
 const UserChallengeRouter = require('./userChallenge');
 const ChallengeRouter = require('./challenge');
 const router = require("express").Router();
+require("dotenv").config();
+const process = require("process");
 
-router.use('/user', UserRouter);
-router.use('/role', RoleRouter);
-router.use('/userChallenge', UserChallengeRouter);
-router.use('/challenge', ChallengeRouter);
+let version = process.env.VERSION;
+
+router.use(`/${version}/user', UserRouter`);
+router.use(`/${version}/role', RoleRouter`);
+router.use(`/${version}/userChallenge', UserChallengeRouter`);
+router.use(`/${version}/challenge', ChallengeRouter`);
 
 module.exports = router;

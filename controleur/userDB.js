@@ -22,13 +22,13 @@ module.exports.inscriptionUser = async(req, res) => {
 
 module.exports.getUser = async(req, res) => {
     const client = await pool.connect();
-    const email = req.params.email;
+    const id = req.params.id;
 
     try {
-        if(!email.includes("@")) {
+        if(id == undefined) {
             res.sendStatus(400);
         } else {
-            const {rows : users} = await UserDB.getUser(email, client);
+            const {rows : users} = await UserDB.getUser(id, client);
             const user = users[0];
             if(user !== undefined) {
                 res.json(user);
@@ -53,22 +53,22 @@ module.exports.updateUser = async(req, res) => {
 
         if(
             toUpdate.email !== undefined ||
-            toUpdate.firstname !== undefined ||
-            toUpdate.lastname !== undefined ||
+            toUpdate.firstName !== undefined ||
+            toUpdate.lastName !== undefined ||
             toUpdate.photo !== undefined ||
             toUpdate.password !== undefined ||
-            toUpdate.birthyear !== undefined
+            toUpdate.birthYear !== undefined
         ){
             doUpdate = true;
         }
 
         if(doUpdate){
             newData.email = toUpdate.email;
-            newData.firstName = toUpdate.firstname;
-            newData.lastName = toUpdate.lastname;
+            newData.firstName = toUpdate.firstName;
+            newData.lastName = toUpdate.lastName;
             newData.photo = toUpdate.photo;
             newData.password = toUpdate.password;
-            newData.birthYear = toUpdate.birthyear;
+            newData.birthYear = toUpdate.birthYear;
 
             const client = await pool.connect();
             try{
