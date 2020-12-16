@@ -9,13 +9,15 @@ module.exports.createUser = async(client, firstName, lastName, email, password, 
 
 module.exports.getUserById = async(id, client) => {
     return await client.query(`
-        SELECT * FROM "User" WHERE id = $1`, [id]
+        SELECT id, email, firstName, lastName, photo, birthYear 
+        FROM "User" WHERE id = $1`, [id]
     );
 };
 
 module.exports.getUserByEmail = async(email, client) => {
     return await client.query(`
-        SELECT * FROM "User" WHERE email = $1`, [email]
+        SELECT id, email, firstName, lastName, photo, password, birthYear
+        FROM "User" WHERE email = $1`, [email]
     );
 };
 
@@ -58,4 +60,17 @@ module.exports.updateUser = async(client, id, firstName, lastName, email, photo,
     } else {
         throw new Error("No field to update");
     }
-}
+};
+
+module.exports.getAllUsers = async(client) => {
+    return await client.query(`
+        SELECT id, email, firstName, lastName, photo, birthYear
+        FROM "User";
+    `);
+};
+
+module.exports.deleteUser = async(id, client) => {
+    return await client.query(`
+        DELETE FROM "User" WHERE id = $1`, [id]
+    );
+};

@@ -25,7 +25,7 @@ module.exports.getUserById = async(req, res) => {
     const id = req.params.id;
 
     try {
-        if(id == undefined) {
+        if(id === undefined) {
             res.sendStatus(400);
         } else {
             const {rows : users} = await UserDB.getUserById(id, client);
@@ -44,29 +44,22 @@ module.exports.getUserById = async(req, res) => {
     }
 };
 
-module.exports.getUserByEmail = async(req, res) => {
+module.exports.getAllUsers = async(req, res) => {
     const client = await pool.connect();
-    const email = req.params.email;
 
     try {
-        if(email == undefined || !email.includes("@")) {
-            res.sendStatus(400);
+        const{rows : users} = await UserDB.getAllUsers(client);
+        if(users !== undefined) {
+            res.json(users);
         } else {
-            const {rows : users} = await UserDB.getUserByEmail(email, client);
-            const user = users[0];
-            if(user !== undefined) {
-                res.json(user);
-            } else {
-                res.sendStatus(404);
-            }
+            res.sendStatus(404);
         }
-    } catch(e) {
-        res.json(e);
+    } catch(error) {
         res.sendStatus(500);
     } finally {
         client.release();
     }
-};
+}
 
 module.exports.updateUser = async(req, res) => {
     if(req.session){
@@ -122,3 +115,21 @@ module.exports.updateUser = async(req, res) => {
         res.sendStatus(401);
     }
 };
+
+//permet à un utilisateur de supprimer son propre compte, étant donné que son id est récupérer lors de l'identification
+//pas besoin d'envoyer l'id via le body de la requête ou via l'url
+module.exports.deleteUser = async(req, res) => {
+    if(req.session) {
+        const id = req.session.id;
+        const client = await pool.connect();
+        try {
+            await UserDB.deleteUser(id, client);
+            res.sendStatus(204);
+        } catch(e) {
+            console.log(e);
+            res.sendStatus(500)
+        }
+    } else {
+        res.sendStatus("400");
+    }
+}
