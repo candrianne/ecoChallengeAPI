@@ -22,7 +22,8 @@ module.exports.inscriptionUser = async(req, res) => {
 
 module.exports.getUserById = async(req, res) => {
     const client = await pool.connect();
-    const id = req.params.id;
+    const idTexte = req.params.id;
+    const id = parseInt(idTexte);
 
     try {
         if(id === undefined) {

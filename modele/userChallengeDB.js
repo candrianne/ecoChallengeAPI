@@ -15,7 +15,7 @@ module.exports.resumeUserChallenge = async(userId, challengeId, client) => {
         endDate = NULL
         WHERE challengeId = $1 AND userId = $2`, [challengeId, userId]
     );
-}
+};
 
 module.exports.pauseUserChallenge = async(userId, challengeId, client) => {
     return await client.query(`
@@ -23,4 +23,11 @@ module.exports.pauseUserChallenge = async(userId, challengeId, client) => {
         SET endDate = NULL
         WHERE challengeId = $1 AND userId = $2`, [challengeId, userId]
     );
-}
+};
+
+module.exports.deleteUserChallengesByChallengeId = async(challengeId, client) => {
+    return await client.query(`
+        DELETE FROM UserChallenge
+        WHERE challengeId = $1`, [challengeId]
+    );
+};
