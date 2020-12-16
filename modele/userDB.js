@@ -7,9 +7,15 @@ module.exports.createUser = async(client, firstName, lastName, email, password, 
     );
 };
 
-module.exports.getUser = async(id, client) => {
+module.exports.getUserById = async(id, client) => {
     return await client.query(`
         SELECT * FROM "User" WHERE id = $1`, [id]
+    );
+};
+
+module.exports.getUserByEmail = async(email, client) => {
+    return await client.query(`
+        SELECT * FROM "User" WHERE email = $1`, [email]
     );
 };
 

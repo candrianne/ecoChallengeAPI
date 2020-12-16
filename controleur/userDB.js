@@ -20,7 +20,7 @@ module.exports.inscriptionUser = async(req, res) => {
     }
 };
 
-module.exports.getUser = async(req, res) => {
+module.exports.getUserById = async(req, res) => {
     const client = await pool.connect();
     const id = req.params.id;
 
@@ -28,7 +28,31 @@ module.exports.getUser = async(req, res) => {
         if(id == undefined) {
             res.sendStatus(400);
         } else {
-            const {rows : users} = await UserDB.getUser(id, client);
+            const {rows : users} = await UserDB.getUserById(id, client);
+            const user = users[0];
+            if(user !== undefined) {
+                res.json(user);
+            } else {
+                res.sendStatus(404);
+            }
+        }
+    } catch(e) {
+        res.json(e);
+        res.sendStatus(500);
+    } finally {
+        client.release();
+    }
+};
+
+module.exports.getUserByEmail = async(req, res) => {
+    const client = await pool.connect();
+    const email = req.params.email;
+
+    try {
+        if(email == undefined || !email.includes("@")) {
+            res.sendStatus(400);
+        } else {
+            const {rows : users} = await UserDB.getUserByEmail(email, client);
             const user = users[0];
             if(user !== undefined) {
                 res.json(user);

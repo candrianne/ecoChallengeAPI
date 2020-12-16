@@ -2,6 +2,7 @@ const UserRouter = require('./user');
 const RoleRouter = require('./role');
 const UserChallengeRouter = require('./userChallenge');
 const ChallengeRouter = require('./challenge');
+const AuthoMiddleware = require('../middleware/Authorization');
 const router = require("express").Router();
 require("dotenv").config();
 const process = require("process");
