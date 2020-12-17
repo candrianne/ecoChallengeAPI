@@ -120,12 +120,12 @@ module.exports.addChallenge = async (req,res) => {
 module.exports.getChallenge = async(req, res) => {
     const idTexte = req.params.id;
     const id = parseInt(idTexte);
+    const client = await pool.connect();
 
     try {
         if(isNaN(id)) {
             res.sendStatus(400);
         } else {
-            const client = await pool.connect();
             const {rows : challenges} = await ChallengeModele.getChallenge(id, client);
             const challenge = challenges[0];
             if(challenge !== undefined) {
