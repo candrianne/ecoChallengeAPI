@@ -64,3 +64,9 @@ module.exports.challengeExists = async(client, id) => {
     );
     return rows[0].nbr > 0;
 };
+
+module.exports.getChallengeIdByName = async(name, client) => {
+    return await client.query(`
+        SELECT id from challenge WHERE name = $1`, [name]
+    );
+}

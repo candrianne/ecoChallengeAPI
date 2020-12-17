@@ -138,3 +138,23 @@ module.exports.getChallenge = async(req, res) => {
     }
 }
 
+module.exports.getChallengeIdByName = async(req, res) => {
+    const name = req.params.name;
+    const client = await pool.connect();
+
+    try {
+        const {rows : challenges} = await ChallengeModele.getChallengeIdByName(name, client);
+        const challenge = challenges[0];
+        if(challenge !== undefined) {
+            res.json(challenge.id);
+        } else {
+            res.sendStatus(404);
+        }
+    } catch(e) {
+        console.log(e);
+        res.sendStatus(500);
+    } finally {
+        client.release();
+    }
+};
+
