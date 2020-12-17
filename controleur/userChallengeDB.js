@@ -1,6 +1,6 @@
 const pool = require('../modele/database');
-const UserChallengeDB = require('../modele/userChallengeDB');
 const UserChallengeModele = require('../modele/userChallengeDB');
+const ChallengeModele = require('../modele/challengeDB');
 
 
 module.exports.getAllUserChallenges = async(req, res) => {
@@ -11,7 +11,7 @@ module.exports.getAllUserChallenges = async(req, res) => {
         if(isNaN(id)){
             res.sendStatus(400);
         } else {
-            const {rows: challenges} = await UserChallengeDB.getAllChallenges(id, client);
+            const {rows: challenges} = await UserChallengeModele.getAllChallenges(id, client);
             if(challenges !== undefined){
                 res.json(challenges);
             } else {
@@ -36,10 +36,10 @@ module.exports.resumeOrPause = async(req, res)  => {
             if(await UserChallengeModele.userChallengeExists(client, userId, challengeId)) {
                 try {
                     if(action === "resume") {
-                        await UserChallengeDB.resumeUserChallenge(userId, challengeId, client);
+                        await UserChallengeModele.resumeUserChallenge(userId, challengeId, client);
                         res.sendStatus(204);
                     } else {
-                        await UserChallengeDB.pauseUserChallenge(userId, challengeId, client);
+                        await UserChallengeModele.pauseUserChallenge(userId, challengeId, client);
                         res.sendStatus(204);
                     }
                 } catch(e) {
@@ -68,10 +68,10 @@ module.exports.addUserChallenge = async(req, res) => {
             if (challengeId === undefined) {
                 res.sendStatus(400);
             } else {
-                if (!await UserChallengeModele.userChallengeExists(client, userId, challengeId)) {
-                    res.status(404).json({error: "l'utilisateur ne participe pas à ce challenge"});
+                if (!await ChallengeModele.challengeExists(client, challengeId)) {
+                    res.status(404).json({error: "le challenge n'existe pas"});
                 } else {
-                    await UserChallengeDB.addUserChallenge(userId, challengeId, client);
+                    await UserChallengeModele.addUserChallenge(userId, challengeId, client);
                     res.sendStatus(201);
                 }
             }
@@ -96,7 +96,7 @@ module.exports.deleteUserChallenge = async(req, res) => {
                 if(!await UserChallengeModele.userChallengeExists(client, userId, challengeId)) {
                     res.status(404).json({error: "l'utilisateur ne participe pas à ce challenge"});
                 } else {
-                    await UserChallengeDB.deleteUserChallenge(userId, challengeId, client);
+                    await UserChallengeModele.deleteUserChallenge(userId, challengeId, client);
                     res.sendStatus(204);
                 }
             }
