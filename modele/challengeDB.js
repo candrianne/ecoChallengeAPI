@@ -56,3 +56,11 @@ module.exports.addChallenge = async(client, name, description, photo, difficulty
         VALUES ($1, $2, $3, $4)`, [name, description, photo, difficultyLevelId]
     );
 };
+
+module.exports.challengeExists = async(client, id) => {
+    const {rows} = await client.query(
+        "SELECT count(id) AS nbr FROM Challenge WHERE id = $1",
+        [id]
+    );
+    return rows[0].nbr > 0;
+}

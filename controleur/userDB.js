@@ -26,7 +26,7 @@ module.exports.getUserById = async(req, res) => {
     const id = parseInt(idTexte);
 
     try {
-        if(id === undefined) {
+        if(isNaN(id)) {
             res.sendStatus(400);
         } else {
             const {rows : users} = await UserDB.getUserById(id, client);
@@ -124,9 +124,13 @@ module.exports.deleteUser = async(req, res) => {
         const id = req.session.id;
         const client = await pool.connect();
         try {
+            await client.query("BEGIN");
+            await FriendshipModele.deleteAllUserFriendships(id, client);
             await UserDB.deleteUser(id, client);
+            await client.query("COMMIT");
             res.sendStatus(204);
         } catch(e) {
+            await client.query("ROLLBACK");
             console.log(e);
             res.sendStatus(500)
         }

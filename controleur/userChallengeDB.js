@@ -1,5 +1,6 @@
 const pool = require('../modele/database');
 const UserChallengeDB = require('../modele/userChallengeDB');
+const ChallengeModele = require('../modele/challengeDB');
 require("dotenv").config();
 const process = require('process');
 const jwt = require('jsonwebtoken');
@@ -35,19 +36,23 @@ module.exports.resumeOrPause = async(req, res)  => {
 
         if(action && challengeId && (action === "resume" || action === "pause")) {
             const client = await pool.connect();
-            try {
-                if(action === "resume") {
-                    await UserChallengeDB.resumeUserChallenge(userId, challengeId, client);
-                    res.sendStatus(204);
-                } else {
-                    await UserChallengeDB.pauseUserChallenge(userId, challengeId, client);
-                    res.sendStatus(204);
+            if(await ChallengeModele.challengeExists(client, challengeId)) {
+                try {
+                    if(action === "resume") {
+                        await UserChallengeDB.resumeUserChallenge(userId, challengeId, client);
+                        res.sendStatus(204);
+                    } else {
+                        await UserChallengeDB.pauseUserChallenge(userId, challengeId, client);
+                        res.sendStatus(204);
+                    }
+                } catch(e) {
+                    console.log(e);
+                    res.sendStatus(500);
+                } finally {
+                    client.release();
                 }
-            } catch(e) {
-                console.log(e);
-                res.sendStatus(500);
-            } finally {
-                client.release();
+            } else {
+                res.status(404).json({error :"l'id du challenge n'existe pas"});
             }
         } else {
             res.sendStatus(400);
