@@ -31,3 +31,25 @@ module.exports.deleteUserChallengesByChallengeId = async(challengeId, client) =>
         WHERE challengeId = $1`, [challengeId]
     );
 };
+
+module.exports.addUserChallenge = async(userId, challengeId, client) => {
+    return await client.query(`
+        INSERT INTO userChallenge(startDate, userId, challengeId)
+        VALUES (CURRENT_DATE, $1, $2)`, [userId, challengeId]
+    );
+};
+
+module.exports.deleteUserChallenge = async(userId, challengeId, client) => {
+    return await client.query(`
+        DELETE FROM userChallenge
+        WHERE userId = $1 AND challengeId = $2`, [userId, challengeId]
+    );
+};
+
+module.exports.userChallengeExists = async(client, userId, challengeId) => {
+    const {rows} = await client.query(
+        "SELECT count(*) AS nbr from userChallenge WHERE userId = $1 and challengeId = $2",
+        [userId, challengeId]
+    );
+    return rows[0].nbr > 0;
+};

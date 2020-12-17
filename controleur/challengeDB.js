@@ -20,9 +20,8 @@ module.exports.getAllChallenges = async(req, res) => {
 };
 
 module.exports.updateChallenge = async(req, res) => {
-    const idTexte = req.params.id;
-    const id = parseInt(idTexte);
     const toUpdate = req.body;
+    const id = toUpdate.id;
     let newData = {};
     let doUpdate = false;
 
@@ -67,8 +66,7 @@ module.exports.updateChallenge = async(req, res) => {
 };
 
 module.exports.deleteChallenge = async (req,res) => {
-    const idTexte = req.params.id;
-    const id = parseInt(idTexte);
+    const id = req.body.id;
     const client = await pool.connect();
 
     if(isNaN(id)) {
@@ -104,10 +102,8 @@ module.exports.addChallenge = async (req,res) => {
     } else {
         const client = await pool.connect();
         try {
-            if(difficultyLevelId >= 1 && difficultyLevelId <= 3) {
-                await ChallengeModele.addChallenge(client, name, description, photo, difficultyLevelId);
-                res.sendStatus(201);
-            }
+            await ChallengeModele.addChallenge(client, name, description, photo, difficultyLevelId);
+            res.sendStatus(201);
         } catch (e){
             console.log(e);
             res.sendStatus(500);

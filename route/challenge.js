@@ -6,8 +6,8 @@ const ChallengeControleur = require('../controleur/challengeDB');
 
 router.get("/", ChallengeControleur.getAllChallenges);
 router.get('/:id', ChallengeControleur.getChallenge);
-router.patch('/:id',JWTMiddleWare.identification, AuthoMiddleware.mustBeAdmin, ChallengeControleur.updateChallenge);
-router.delete('/:id',JWTMiddleWare.identification, AuthoMiddleware.mustBeAdmin, ChallengeControleur.deleteChallenge);
+router.patch('/',JWTMiddleWare.identification, AuthoMiddleware.mustBeAdmin, ChallengeControleur.updateChallenge);
+router.delete('/',JWTMiddleWare.identification, AuthoMiddleware.mustBeAdmin, ChallengeControleur.deleteChallenge);
 router.post('/',JWTMiddleWare.identification, AuthoMiddleware.mustBeAdmin, ChallengeControleur.addChallenge);
 
 module.exports = router;

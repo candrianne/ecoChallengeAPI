@@ -63,4 +63,4 @@ module.exports.challengeExists = async(client, id) => {
         [id]
     );
     return rows[0].nbr > 0;
-}
+};
