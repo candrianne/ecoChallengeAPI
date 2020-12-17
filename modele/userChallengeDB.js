@@ -20,7 +20,7 @@ module.exports.resumeUserChallenge = async(userId, challengeId, client) => {
 module.exports.pauseUserChallenge = async(userId, challengeId, client) => {
     return await client.query(`
         UPDATE UserChallenge
-        SET endDate = NULL
+        SET endDate = CURRENT_DATE
         WHERE challengeId = $1 AND userId = $2`, [challengeId, userId]
     );
 };

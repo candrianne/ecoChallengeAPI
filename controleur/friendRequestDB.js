@@ -22,6 +22,8 @@ module.exports.createFriendRequest = async(req, res) => {
         } catch(e) {
             console.log(e);
             res.sendStatus(500);
+        } finally {
+            client.release();
         }
     } else {
         res.sendStatus(401);
@@ -47,6 +49,8 @@ module.exports.deleteFriendRequest = async(req, res) => {
         } catch (e) {
             console.log(e);
             res.sendStatus(500);
+        } finally {
+            client.release();
         }
     } else {
         res.sendStatus(401);

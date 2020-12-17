@@ -3,7 +3,7 @@ const Router = require("express-promise-router");
 const router = new Router;
 const FriendshipControleur = require('../controleur/friendshipDB');
 
-router.post('/',JWTMiddleWare.identification, FriendRequestControleur.createFriendRequest);
-router.delete('/',JWTMiddleWare.identification, FriendRequestControleur.deleteFriendRequest);
+router.post('/',JWTMiddleWare.identification, FriendshipControleur.createFriendship);
+router.get('/', FriendshipControleur.getFriendship);
 
 module.exports = router;

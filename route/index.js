@@ -15,5 +15,6 @@ router.use(`/${version}/role`, RoleRouter);
 router.use(`/${version}/userChallenge`, UserChallengeRouter);
 router.use(`/${version}/challenge`, ChallengeRouter);
 router.use(`/${version}/friendRequest`, FriendRequestRouter);
+router.use(`/${version}/friendship`, FriendshipRouter);
 
 module.exports = router;
