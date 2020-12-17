@@ -1,5 +1,7 @@
 const pool = require('../modele/database');
 const UserDB = require('../modele/userDB');
+const FriendshipModele = require('../modele/friendshipDB');
+const FriendRequestModele = require('../modele/friendRequestDB');
 
 
 module.exports.inscriptionUser = async(req, res) => {
@@ -126,6 +128,7 @@ module.exports.deleteUser = async(req, res) => {
         try {
             await client.query("BEGIN");
             await FriendshipModele.deleteAllUserFriendships(id, client);
+            await FriendRequestModele.deleteUserFriendRequests(id, client);
             await UserDB.deleteUser(id, client);
             await client.query("COMMIT");
             res.sendStatus(204);

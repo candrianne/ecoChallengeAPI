@@ -74,3 +74,11 @@ module.exports.deleteUser = async(id, client) => {
         DELETE FROM "User" WHERE id = $1`, [id]
     );
 };
+
+module.exports.userExists = async(client, id) => {
+    const {rows} = await client.query(
+        'SELECT count(id) AS nbr FROM "User" WHERE id = $1',
+        [id]
+    );
+    return rows[0].nbr > 0;
+};
