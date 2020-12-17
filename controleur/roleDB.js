@@ -16,7 +16,7 @@ module.exports.login = async(req, res) => {
             if (userType === "inconnu") {
                 res.sendStatus(404);
             } else if (userType === "admin") {
-                const {id, login} = value;
+                const {id, email} = value;
                 const payload = {status: userType, value: {id, email}};
                 const token = jwt.sign(
                     payload,
