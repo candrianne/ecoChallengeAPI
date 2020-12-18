@@ -1,7 +1,7 @@
-module.exports.createChallengeProposition = async(client, name, description, photo, userId) => {
+module.exports.createChallengeProposition = async(client, name, description, photo, difficultyLevelId, userId) => {
     await client.query(`
         INSERT INTO challengeProposition(name, description, photo, userId)
-        VALUES ($1, $2, $3, $4)`, [name, description, photo, userId]
+        VALUES ($1, $2, $3, $4)`, [name, description, photo, difficultyLevelId, userId]
     );
 };
 
@@ -26,6 +26,6 @@ module.exports.deleteChallengeProposition = async (id, client) => {
 
 module.exports.deleteUserChallengePropositions = async(id, client) => {
     await client.query(`
-        DELETE FROM challengeProposition WHERE userId = `, [id]
+        DELETE FROM challengeProposition WHERE userId = $1`, [id]
     );
 };

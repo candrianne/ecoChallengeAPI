@@ -4,14 +4,14 @@ const ChallengePropositionModele = require('../modele/challengePropositionDB');
 module.exports.createChallengeProposition = async(req, res) => {
     if(req.session) {
         const userId = req.session.id;
-        const {name, description, photo} = req.body;
+        const {name, description, photo, difficultyLevelId} = req.body;
 
-        if(!name || !description || !photo || !userId) {
+        if(!name || !description || !photo || !difficultyLevelId || !userId) {
             res.sendStatus(400);
         } else {
             const client = await pool.connect();
             try {
-                await ChallengePropositionModele.createChallengeProposition(client, name, description, photo, userId);
+                await ChallengePropositionModele.createChallengeProposition(client, name, description, photo, difficultyLevelId, userId);
                 res.sendStatus(201);
             } catch (e){
                 console.log(e);

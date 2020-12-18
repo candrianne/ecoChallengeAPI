@@ -140,6 +140,6 @@ module.exports.deleteUser = async(req, res) => {
             res.sendStatus(500)
         }
     } else {
-        res.sendStatus("400");
+        res.sendStatus("401");
     }
 }

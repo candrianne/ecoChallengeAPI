@@ -71,7 +71,8 @@ CREATE TABLE ChallengeProposition
 	description varchar NOT NULL,
 	name varchar NOT NULL,
 	photo varchar NOT NULL,
-	userId integer NOT NULL REFERENCES "User"(id) DEFERRABLE INITIALLY IMMEDIATE
+	userId integer NOT NULL REFERENCES "User"(id) DEFERRABLE INITIALLY IMMEDIATE,
+	difficultyLevelId integer NOT NULL REFERENCES DifficultyLevel(id) DEFERRABLE INITIALLY IMMEDIATE
 );
 
 DROP TABLE IF EXISTS Admin;
