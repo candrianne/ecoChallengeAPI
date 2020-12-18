@@ -4,7 +4,14 @@ const {friendRequestExists} = require("../modele/friendRequestDB");
 const {deleteFriendRequest} = require("../modele/friendRequestDB");
 
 
-
+/**
+ * @swagger
+ *  components:
+ *      responses:
+ *          FriendshipAdded:
+ *              description: nouvelle amitié ajoutée
+ *
+ */
 module.exports.createFriendship = async(req, res) => {
     const idUser = req.session.id;
     const idNewFriend = req.body.idNewFriend;
@@ -35,6 +42,21 @@ module.exports.createFriendship = async(req, res) => {
 };
 
 
+/**
+ * @swagger
+ *  components:
+ *      schemas:
+ *         Friendship:
+ *          type: object
+ *          properties:
+ *              idUser1:
+ *                  type: integer
+ *              idUser2:
+ *                  type: integer
+ *          required:
+ *              - idUser1
+ *              - idUser2
+ */
 module.exports.getFriendship = async(req, res) => {
     const {idUser1, idUser2} = req.query;
 

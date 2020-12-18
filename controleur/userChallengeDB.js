@@ -3,6 +3,26 @@ const UserChallengeModele = require('../modele/userChallengeDB');
 const ChallengeModele = require('../modele/challengeDB');
 
 
+/**
+ * @swagger
+ * components:
+ *  schemas:
+ *      UserChallenge:
+ *          type: object
+ *          properties:
+ *              startdate:
+ *                  type: string
+ *                  format: date
+ *              enddate:
+ *                  type: string
+ *                  format: date
+ *              name:
+ *                  description : le nom du challenge
+ *                  type: string
+ *              score:
+ *                  description : le score de la difficulté du challenge
+ *                  type: integer
+ */
 module.exports.getAllUserChallenges = async(req, res) => {
     const client = await pool.connect();
     const idTexte = req.params.id; //attention ! Il s'agit de texte !
@@ -24,7 +44,27 @@ module.exports.getAllUserChallenges = async(req, res) => {
         client.release();
     }
 };
-
+/**
+ * @swagger
+ *  components:
+ *      responses:
+ *          UserChallengeUpdated:
+ *              description: le challenge de l'utilisateur à été mis a jour
+ *      requestBodies:
+ *          UserChallengePauseOrUpdate:
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          properties:
+ *                              challengeId:
+ *                                  type: integer
+ *                              action:
+ *                                  type: string
+ *                                  enum:
+ *                                      - resume
+ *                                      - pause
+ *
+ */
 module.exports.resumeOrPause = async(req, res)  => {
     if(req.session) {
         const userId = req.session.id;
@@ -58,7 +98,23 @@ module.exports.resumeOrPause = async(req, res)  => {
         res.sendStatus(401)
     }
 };
-
+/**
+ * @swagger
+ *  components:
+ *      responses:
+ *          UserChallengeAdded:
+ *              description: le userChallenge a été ajouté à la db
+ *      requestBodies:
+ *          UserChallengeUpdateOrDelete:
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          properties:
+ *                              challengeId:
+ *                                  type: integer
+ *                          required:
+ *                              - challengeId
+ */
 module.exports.addUserChallenge = async(req, res) => {
     if(req.session) {
         const userId = req.session.id;

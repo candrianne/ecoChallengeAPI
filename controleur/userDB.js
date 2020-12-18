@@ -5,7 +5,38 @@ const {deleteUserFriendRequests} = require('../modele/friendRequestDB');
 const {deleteUserChallengePropositions} = require('../modele/challengePropositionDB');
 const {deleteUserChallengesByUserId} = require('../modele/userChallengeDB');
 
-
+/**
+ * @swagger
+ *  components:
+ *      responses:
+ *          UserInscrit:
+ *              description: l'utilisateur a été ajouté à la BD
+ *      requestBodies:
+ *          InscriptionUser:
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          properties:
+ *                              firstName:
+ *                                      type: string
+ *                              lastName:
+ *                                      type: string
+ *                              email:
+ *                                      type: string
+ *                                      format : email
+ *                              password:
+ *                                      type: string
+ *                                      format: password
+ *                              birthYear:
+ *                                      type : integer
+ *                          required:
+ *                                  - firstName
+ *                                  - lastName
+ *                                  - email
+ *                                  - password
+ *                                  - birthYear
+ *
+ */
 module.exports.inscriptionUser = async(req, res) => {
     const {firstName, lastName, email, password, birthYear} = req.body;
 
@@ -24,6 +55,38 @@ module.exports.inscriptionUser = async(req, res) => {
     }
 };
 
+/**
+ * @swagger
+ * components:
+ *  schemas:
+ *      User:
+ *          type: object
+ *          properties:
+ *              id:
+ *                  type: integer
+ *              email:
+ *                  type: string
+ *              firstname:
+ *                  type: string
+ *              lastname:
+ *                  type: string
+ *              photo:
+ *                  type: string
+ *              birthyear:
+ *                  type: integer
+ */
+
+/**
+ * @swagger
+ * components:
+ *  responses:
+ *      UserFound:
+ *           description: renvoie un utilisateur
+ *           content:
+ *               application/json:
+ *                   schema:
+ *                       $ref: '#/components/schemas/User'
+ */
 module.exports.getUserById = async(req, res) => {
     const client = await pool.connect();
     const idTexte = req.params.id;
@@ -49,6 +112,17 @@ module.exports.getUserById = async(req, res) => {
     }
 };
 
+/**
+ * @swagger
+ * components:
+ *  responses:
+ *      UserFound:
+ *           description: renvoie un utilisateur
+ *           content:
+ *               application/json:
+ *                   schema:
+ *                       $ref: '#/components/schemas/User'
+ */
 module.exports.getAllUsers = async(req, res) => {
     const client = await pool.connect();
 
@@ -66,6 +140,31 @@ module.exports.getAllUsers = async(req, res) => {
     }
 }
 
+/**
+ * @swagger
+ *  components:
+ *      responses:
+ *          UserUpdated:
+ *              description: l'utilisateur a été mis à jour
+ *      requestBodies:
+ *          UserAUpdate:
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          properties:
+ *                              email:
+ *                                  type: string
+ *                                  format : email
+ *                              firstName:
+ *                                  type: string
+ *                              lastName:
+ *                                  type: string
+ *                              photo:
+ *                                  type: string
+ *                              password:
+ *                                  type: string
+ *                                  format: password
+ */
 module.exports.updateUser = async(req, res) => {
     if(req.session){
         const userObj = req.session;

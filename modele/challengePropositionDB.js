@@ -29,3 +29,9 @@ module.exports.deleteUserChallengePropositions = async(id, client) => {
         DELETE FROM challengeProposition WHERE userId = $1`, [id]
     );
 };
+
+module.exports.getChallengePropositionIdByName = async(name, client) => {
+    return await client.query(`
+        SELECT id from challengeProposition WHERE name = $1`, [name]
+    );
+}

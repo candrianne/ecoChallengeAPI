@@ -4,6 +4,22 @@ require("dotenv").config();
 const process = require('process');
 const jwt = require('jsonwebtoken');
 
+/**
+ * @swagger
+ * components:
+ *  schemas:
+ *      Login:
+ *          type: object
+ *          properties:
+ *              email:
+ *                  type: string
+ *              password:
+ *                  type: string
+ *                  format: password
+ *          required:
+ *              - email
+ *              - password
+ */
 module.exports.login = async(req, res) => {
     const {email, password} = req.body;
     if(email === undefined || password === undefined) {

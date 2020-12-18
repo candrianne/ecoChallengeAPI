@@ -1,6 +1,49 @@
 const pool = require('../modele/database');
 const ChallengePropositionModele = require('../modele/challengePropositionDB');
 
+
+/**
+ * @swagger
+ *  components:
+ *      requestBodies:
+ *          CreateChallengeProposition:
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          properties:
+ *                              name:
+ *                                  type: string
+ *                              description:
+ *                                  type: string
+ *                              photo:
+ *                                  type: string
+ *                              difficultyLevelId:
+ *                                  type: integer
+ *                          required:
+ *                              - name
+ *                              - description
+ *                              - photo
+ *                              - difficultyLevelId
+ *      responses:
+ *          ChallengePropositionCreated:
+ *              description: proposition ajoutée à la db
+ *      schemas:
+ *          ChallengeProposition :
+ *              type: object
+ *              properties:
+ *                  id:
+ *                      type: integer
+ *                  description:
+ *                      type: string
+ *                  name:
+ *                      type: string
+ *                  photo:
+ *                      type: string
+ *                  userid:
+ *                      type: integer
+ *                  difficultylevelid:
+ *                      type: integer
+ */
 module.exports.createChallengeProposition = async(req, res) => {
     if(req.session) {
         const userId = req.session.id;
@@ -63,5 +106,25 @@ module.exports.deleteChallengeProposition = async(req, res) => {
         } finally {
             client.release();
         }
+    }
+};
+
+module.exports.getChallengePropositionIdByName = async(req, res) => {
+    const name = req.params.name;
+    const client = await pool.connect();
+
+    try {
+        const {rows : challengesProposition} = await ChallengePropositionModele.getChallengePropositionIdByName(name, client);
+        const challengeProposition = challengesProposition[0];
+        if(challengeProposition !== undefined) {
+            res.json(challengeProposition.id);
+        } else {
+            res.sendStatus(404);
+        }
+    } catch(e) {
+        console.log(e);
+        res.sendStatus(500);
+    } finally {
+        client.release();
     }
 };

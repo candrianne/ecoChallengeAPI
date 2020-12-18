@@ -2,6 +2,64 @@ const pool = require('../modele/database');
 const ChallengeModele = require("../modele/challengeDB");
 const UserChallengeModele = require("../modele/userChallengeDB");
 
+/**
+ *@swagger
+ * components:
+ *  schemas:
+ *      ChallengeAdapted:
+ *          type: object
+ *          properties:
+ *              id:
+ *                  type: integer
+ *              name:
+ *                  type: string
+ *              description:
+ *                  type: string
+ *              photo:
+ *                  type: string
+ *              difficulty:
+ *                  type: string
+ *      Challenge:
+ *          type: object
+ *          properties:
+ *              id:
+ *                  type: integer
+ *              name:
+ *                  type: string
+ *              description:
+ *                  type: string
+ *              photo:
+ *                  type: string
+ *              difficultylevelid:
+ *                  type: integer
+ *      ChallengeUpdate:
+ *          type: object
+ *          properties:
+ *              name:
+ *                  type: string
+ *              description:
+ *                  type: string
+ *              photo:
+ *                  type: string
+ *              difficultylevelid:
+ *                  type: integer
+ *      ChallengeCreate:
+ *          type: object
+ *          properties:
+ *              name:
+ *                  type: string
+ *              description:
+ *                  type: string
+ *              photo:
+ *                  type: string
+ *              difficultylevelid:
+ *                  type: integer
+ *          required:
+ *              - name
+ *              - description
+ *              - photo
+ *              - difficultylevelid
+ */
 module.exports.getAllChallenges = async(req, res) => {
     const client = await pool.connect();
 

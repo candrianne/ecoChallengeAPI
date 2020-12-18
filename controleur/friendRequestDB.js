@@ -3,6 +3,14 @@ const FriendRequestModele = require("../modele/friendRequestDB");
 const UserModele = require("../modele/userDB");
 
 
+/**
+ * @swagger
+ *  components:
+ *      responses:
+ *          FriendRequestCreated:
+ *              description: nouvelle demande d'ami ajoutée à la db
+ *
+ */
 module.exports.createFriendRequest = async(req, res) => {
     if(req.session) {
         const senderId = req.session.id;
