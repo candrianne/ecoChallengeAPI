@@ -67,11 +67,11 @@ module.exports.updateChallenge = async(req, res) => {
 
 module.exports.deleteChallenge = async (req,res) => {
     const id = req.body.id;
-    const client = await pool.connect();
 
-    if(isNaN(id)) {
+    if(id === undefined) {
         res.sendStatus(400);
     } else {
+        const client = await pool.connect();
         try {
             await client.query("BEGIN");
             const challengeExists = await ChallengeModele.challengeExists(client, id);

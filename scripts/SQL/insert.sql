@@ -2,10 +2,14 @@ INSERT INTO "User"(email, firstname, lastname, password, birthyear)
 	VALUES ('charly.andrianne@hotmail.com', 'Charly', 'Andrianne', '$2a$10$ZpAAgc2qtD6jbuixIUIpnuiFgY6UU6.PCG9LO8Q2e2eUuO9HRzjCu', 1998);
 INSERT INTO "User"(email, firstname, lastname, password, birthyear)
 	VALUES ('florent.weiten@gmail.com', 'Florent', 'Weiten', '$2a$10$mks01N0sR0yAbQBeeMVZHe7/WRGkjqQGBJb6B0tLCUByC35g2nIEC', 1998);
+INSERT INTO "User"(email, firstname, lastname, password, birthyear)
+    VALUES ('oliver.andrianne@hotmail.com', 'Oliver', 'Andrianne', '$2a$10$.bcOd.JihIlr5ZAs16JthezKR2nTKUbrrYi38WQ3M8VAFx19UpFHW', 1999);
 
 
 INSERT INTO friendship(iduser1, iduser2)
 	VALUES (1, 2);
+INSERT INTO friendship(iduser1, iduser2)
+	VALUES (1, 3);
 
 
 INSERT INTO difficultylevel(name, nbdaysbronze, nbdayssilver, nbdaysgold, nbdaysdiamond, score)

@@ -71,7 +71,6 @@ CREATE TABLE ChallengeProposition
 	description varchar NOT NULL,
 	name varchar NOT NULL,
 	photo varchar NOT NULL,
-	"column" integer NOT NULL,
 	userId integer NOT NULL REFERENCES "User"(id) DEFERRABLE INITIALLY IMMEDIATE
 );
 

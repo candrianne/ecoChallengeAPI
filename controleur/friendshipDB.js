@@ -32,42 +32,8 @@ module.exports.createFriendship = async(req, res) => {
             client.release();
         }
     }
-}
+};
 
-module.exports.createFriendship = async(req, res) => {
-    const idUser = req.session.id;
-    const idNewFriend = req.body.idNewFriend;
-
-    if(!idUser || !idNewFriend) {
-        res.sendStatus(400);
-    } else {
-        const client = await pool.connect();
-        try {
-            await client.query("BEGIN");
-            const promises = [friendRequestExists(idUser, idNewFriend, client), friendRequestExists(idNewFriend, idUser, client)];
-            const values = await Promise.all(promises);
-            if(values[0] || values[1]) {
-                if(values[0]) {
-                    await deleteFriendRequest(idUser, idNewFriend, client);
-                } else {
-                    await deleteFriendRequest(idNewFriend, idUser, client);
-                }
-                await FriendshipModele.createFriendship(idUser, idNewFriend, client);
-                await client.query("COMMIT");
-                res.sendStatus(201);
-            } else {
-                await client.query("ROLLBACK");
-                res.status(404).json({error: "la demande d'ami n'a pas été envoyée"});
-            }
-        } catch (e) {
-            await client.query("ROLLBACK");
-            console.log(e);
-            res.sendStatus(500);
-        } finally {
-            client.release();
-        }
-    }
-}
 
 module.exports.getFriendship = async(req, res) => {
     const {idUser1, idUser2} = req.query;
@@ -91,7 +57,7 @@ module.exports.getFriendship = async(req, res) => {
             client.release();
         }
     }
-}
+};
 
 
 module.exports.getAllUserFriendships = async(req, res) => {
@@ -114,7 +80,7 @@ module.exports.getAllUserFriendships = async(req, res) => {
     } else {
         res.sendStatus(401);
     }
-}
+};
 
 module.exports.deleteFriendship = async(req, res) => {
     if(req.session) {
@@ -141,4 +107,4 @@ module.exports.deleteFriendship = async(req, res) => {
     } else {
         res.sendStatus(401);
     }
-}
+};
