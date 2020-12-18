@@ -72,7 +72,7 @@ CREATE TABLE ChallengeProposition
 	name varchar NOT NULL,
 	photo varchar NOT NULL,
 	"column" integer NOT NULL,
-	userId integer REFERENCES "User"(id) DEFERRABLE INITIALLY IMMEDIATE
+	userId integer NOT NULL REFERENCES "User"(id) DEFERRABLE INITIALLY IMMEDIATE
 );
 
 DROP TABLE IF EXISTS Admin;
@@ -80,6 +80,6 @@ DROP TABLE IF EXISTS Admin;
 CREATE TABLE Admin
 (
 	id integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-	login varchar NOT NULL,
+	email varchar NOT NULL,
 	password varchar NOT NULL
 );

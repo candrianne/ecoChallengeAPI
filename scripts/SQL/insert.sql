@@ -60,5 +60,5 @@ INSERT INTO userchallenge(startdate, enddate, userid, challengeid)
 	VALUES ('2020-09-30', NULL, 2, 10);
 
 
-INSERT INTO admin(login, password)
-	VALUES ('admin1', '$2a$10$KYt2qQdz.zvKj1crdQbzju94M4t1IxNM7BOfM6hSgmYiOttl1qvP.');
+INSERT INTO admin(email, password)
+	VALUES ('admin1@gmail.com', '$2a$10$KYt2qQdz.zvKj1crdQbzju94M4t1IxNM7BOfM6hSgmYiOttl1qvP.');
