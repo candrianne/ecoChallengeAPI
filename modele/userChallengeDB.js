@@ -32,6 +32,13 @@ module.exports.deleteUserChallengesByChallengeId = async(challengeId, client) =>
     );
 };
 
+module.exports.deleteUserChallengesByUserId = async(userId, client) => {
+    return await client.query(`
+        DELETE FROM UserChallenge
+        WHERE userId = $1`, [userId]
+    );
+};
+
 module.exports.addUserChallenge = async(userId, challengeId, client) => {
     return await client.query(`
         INSERT INTO userChallenge(startDate, userId, challengeId)

@@ -3,6 +3,7 @@ const UserDB = require('../modele/userDB');
 const {deleteAllUserFriendships} = require('../modele/friendshipDB');
 const {deleteUserFriendRequests} = require('../modele/friendRequestDB');
 const {deleteUserChallengePropositions} = require('../modele/challengePropositionDB');
+const {deleteUserChallengesByUserId} = require('../modele/userChallengeDB');
 
 
 module.exports.inscriptionUser = async(req, res) => {
@@ -131,6 +132,7 @@ module.exports.deleteUser = async(req, res) => {
             await deleteAllUserFriendships(id, client);
             await deleteUserFriendRequests(id, client);
             await deleteUserChallengePropositions(id, client);
+            await deleteUserChallengesByUserId(id, client);
             await UserDB.deleteUser(id, client);
             await client.query("COMMIT");
             res.sendStatus(204);
