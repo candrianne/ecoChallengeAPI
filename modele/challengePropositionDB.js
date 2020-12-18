@@ -1,7 +1,7 @@
 module.exports.createChallengeProposition = async(client, name, description, photo, difficultyLevelId, userId) => {
     await client.query(`
-        INSERT INTO challengeProposition(name, description, photo, userId)
-        VALUES ($1, $2, $3, $4)`, [name, description, photo, difficultyLevelId, userId]
+        INSERT INTO challengeProposition(name, description, photo, difficultyLevelId, userId)
+        VALUES ($1, $2, $3, $4, $5)`, [name, description, photo, difficultyLevelId, userId]
     );
 };
 
