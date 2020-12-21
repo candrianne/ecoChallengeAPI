@@ -9,5 +9,6 @@ app.use(express.json());
 app.use(Router);
 
 app.listen(port, () => {
+    console.log(process.env.VERSION);
     console.log(`Example app listening at http://localhost:${port}`);
 });
