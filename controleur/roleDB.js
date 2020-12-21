@@ -42,8 +42,8 @@ module.exports.login = async(req, res) => {
                 res.json({jwt : token});
 
             } else {
-                const {id, email, firstName, lastName, photo} = value;
-                const payload = {status: userType, value: {id, email, firstName, lastName, photo}};
+                const {id, email, firstname, lastname, photo} = value;
+                const payload = {status: userType, value: {id, email, firstname, lastname, photo}};
                 const token = jwt.sign(
                     payload,
                     process.env.SECRET_TOKEN,
