@@ -49,13 +49,13 @@ module.exports.createFriendship = async(req, res) => {
  *         Friendship:
  *          type: object
  *          properties:
- *              idUser1:
+ *              iduser1:
  *                  type: integer
- *              idUser2:
+ *              iduser2:
  *                  type: integer
  *          required:
- *              - idUser1
- *              - idUser2
+ *              - iduser1
+ *              - iduser2
  */
 module.exports.getFriendship = async(req, res) => {
     const {idUser1, idUser2} = req.query;

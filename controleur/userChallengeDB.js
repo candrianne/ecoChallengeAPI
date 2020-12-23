@@ -22,6 +22,9 @@ const ChallengeModele = require('../modele/challengeDB');
  *              score:
  *                  description : le score de la difficulté du challenge
  *                  type: integer
+ *              nbpausedays:
+ *                  description : le nombre de jours de "pause" cumulés
+ *                  type : integer
  */
 module.exports.getAllUserChallenges = async(req, res) => {
     const client = await pool.connect();

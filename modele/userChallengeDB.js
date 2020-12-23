@@ -1,6 +1,6 @@
 module.exports.getAllChallenges = async(id, client) => {
     return await client.query(`
-        SELECT UserChallenge.startDate, UserChallenge.endDate, Challenge.name, DifficultyLevel.score
+        SELECT UserChallenge.startDate, UserChallenge.endDate, Challenge.name, DifficultyLevel.score, UserChallenge.nbPauseDays
         FROM UserChallenge
         INNER JOIN Challenge ON UserChallenge.challengeId = Challenge.id
         INNER JOIN DifficultyLevel ON DifficultyLevel.id = Challenge.difficultyLevelId
