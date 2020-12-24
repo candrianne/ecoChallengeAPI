@@ -37,6 +37,40 @@ module.exports.createFriendRequest = async(req, res) => {
         res.sendStatus(401);
     }
 };
+/**
+ * @swagger
+ *  components:
+ *      schemas:
+ *         FriendRequest:
+ *          type: object
+ *          properties:
+ *              sender:
+ *                  type: integer
+ *              receiver:
+ *                  type: integer
+ *          required:
+ *              - sender
+ *              - receiver
+ */
+module.exports.getFriendRequests = async(req, res) => {
+    if(req.session) {
+        const id = req.session.id;
+        const client = await pool.connect();
+        try {
+            const {rows : friendRequests} = await FriendRequestModele.getAllUserFriendRequests(id, client);
+            if(friendRequests.length > 0) {
+                res.json(friendRequests);
+            } else {
+                res.sendStatus(404);
+            }
+        } catch(e) {
+            console.log(e);
+            res.sendStatus(500);
+        }
+    } else {
+        res.sendStatus(401);
+    }
+};
 
 module.exports.deleteFriendRequest = async(req, res) => {
     if(req.session) {

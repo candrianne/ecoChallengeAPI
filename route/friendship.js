@@ -55,7 +55,7 @@ router.post('/',JWTMiddleWare.identification, FriendshipControleur.createFriends
  *              type: integer
  *      responses:
  *          200:
- *              description: un tableau avec tout les utilisateurs
+ *              description: l'amitié recherchée
  *              content:
  *                  application/json:
  *                      schema:

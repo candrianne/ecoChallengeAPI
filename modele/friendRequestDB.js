@@ -1,6 +1,14 @@
+module.exports.getAllUserFriendRequests = async(id, client) => {
+    await client.query(`
+        SELECT * FROM friendRequest
+        WHERE receiver = $1`, [id]
+    );
+};
+
 module.exports.deleteUserFriendRequests =  async(id, client) => {
     await client.query(`
-        DELETE FROM friendRequest WHERE sender = $1 OR receiver = $1`, [id]
+        DELETE FROM friendRequest 
+        WHERE sender = $1 OR receiver = $1`, [id]
     );
 };
 

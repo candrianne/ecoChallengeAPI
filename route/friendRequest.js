@@ -37,6 +37,33 @@ router.post('/',JWTMiddleWare.identification, FriendRequestControleur.createFrie
 /**
  * @swagger
  * /friendRequest/:
+ *  get:
+ *      tags:
+ *          - FriendRequest
+ *      security:
+ *          - bearerAuth: []
+ *      responses:
+ *          200:
+ *              description: un tableau avec toutes les demandes d'amitié d'un utilisateur
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: array
+ *                          items:
+ *                              $ref: '#/components/schemas/FriendRequest'
+ *          400:
+ *              $ref: '#/components/responses/ErrorJWT'
+ *          401:
+ *              $ref: '#/components/responses/MissingJWT'
+ *          404:
+ *              description:  l'utilisateur n'a pas de demandes d'ami
+ *          500:
+ *              description: Erreur serveur
+ */
+router.get('/', JWTMiddleWare.identification, FriendRequestControleur.getFriendRequests);
+/**
+ * @swagger
+ * /friendRequest/:
  *  delete:
  *      tags:
  *          - FriendRequest
