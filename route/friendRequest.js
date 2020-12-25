@@ -17,10 +17,10 @@ const FriendRequestControleur = require('../controleur/friendRequestDB');
  *                  schema:
  *                      type: object
  *                      properties:
- *                          receiverId:
+ *                          receiver:
  *                              type: integer
  *                      required:
- *                          - receiverId
+ *                          - receiver
  *      responses:
  *          201:
  *              $ref: '#/components/responses/FriendRequestCreated'

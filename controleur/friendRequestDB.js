@@ -14,7 +14,7 @@ const UserModele = require("../modele/userDB");
 module.exports.createFriendRequest = async(req, res) => {
     if(req.session) {
         const senderId = req.session.id;
-        const receiverId = req.body.receiverId;
+        const receiverId = req.body.receiver;
         const client = await pool.connect();
         try {
             if (receiverId === undefined) {
