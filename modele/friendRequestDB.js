@@ -1,6 +1,6 @@
 module.exports.getAllUserFriendRequests = async(id, client) => {
     return await client.query(`
-        SELECT FriendRequest.sender, "User".photo, "User".firstname, "User".lastname
+        SELECT FriendRequest.sender, FriendRequest.receiver, "User".photo, "User".firstname, "User".lastname
         FROM FriendRequest INNER JOIN "User"
         ON FriendRequest.sender = "User".id
         WHERE FriendRequest.receiver = $1`, [id]
