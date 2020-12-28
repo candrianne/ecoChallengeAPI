@@ -74,8 +74,8 @@ module.exports.getFriendRequests = async(req, res) => {
 
 module.exports.deleteFriendRequest = async(req, res) => {
     if(req.session) {
-        const senderId = req.session.id;
-        const receiverId = req.body.receiver;
+        const senderId = req.body.sender;
+        const receiverId = req.session.id;
         const client = await pool.connect();
         try {
             if(!receiverId) {
