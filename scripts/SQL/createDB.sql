@@ -7,7 +7,8 @@ CREATE TABLE "User"
   lastName varchar NOT NULL,
   photo varchar,
   password varchar NOT NULL,
-  birthYear integer NOT NULL
+  birthYear integer NOT NULL,
+  firebaseToken varchar
 );
 
 DROP TABLE IF EXISTS Friendship CASCADE;

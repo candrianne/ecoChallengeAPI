@@ -9,7 +9,7 @@ module.exports.createUser = async(client, firstName, lastName, email, password, 
 
 module.exports.getUserById = async(id, client) => {
     return await client.query(`
-        SELECT id, email, firstName, lastName, photo, birthYear 
+        SELECT id, email, firstName, lastName, photo, birthYear, firebaseToken 
         FROM "User" WHERE id = $1`, [id]
     );
 };
@@ -21,7 +21,7 @@ module.exports.getUserByEmail = async(email, client) => {
     );
 };
 
-module.exports.updateUser = async(client, id, firstName, lastName, email, photo, password, birthYear) => {
+module.exports.updateUser = async(client, id, firstName, lastName, email, photo, password, birthYear, firebaseToken) => {
     const params = [];
     const querySet = [];
     let query = `UPDATE "User" SET `;
@@ -50,7 +50,10 @@ module.exports.updateUser = async(client, id, firstName, lastName, email, photo,
         params.push(birthYear);
         querySet.push(`birthYear = $${params.length}`);
     }
-
+    if(firebaseToken !== undefined) {
+        params.push(firebaseToken);
+        querySet.push(`firebaseToken = $${params.length}`);
+    }
     if(params.length > 0) {
         query += querySet.join(",");
         params.push(id);

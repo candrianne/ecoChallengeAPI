@@ -178,7 +178,8 @@ module.exports.updateUser = async(req, res) => {
             toUpdate.lastName !== undefined ||
             toUpdate.photo !== undefined ||
             toUpdate.password !== undefined ||
-            toUpdate.birthYear !== undefined
+            toUpdate.birthYear !== undefined ||
+            toUpdate.firebaseToken !== undefined
         ){
             doUpdate = true;
         }
@@ -190,6 +191,7 @@ module.exports.updateUser = async(req, res) => {
             newData.photo = toUpdate.photo;
             newData.password = toUpdate.password;
             newData.birthYear = toUpdate.birthYear;
+            newData.fireBaseToken = toUpdate.firebaseToken;
 
             const client = await pool.connect();
             try{
@@ -201,7 +203,8 @@ module.exports.updateUser = async(req, res) => {
                     newData.email,
                     newData.photo,
                     newData.password,
-                    newData.birthYear
+                    newData.birthYear,
+                    newData.fireBaseToken
                 );
                 res.sendStatus(204);
             }

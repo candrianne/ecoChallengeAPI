@@ -11,6 +11,8 @@ INSERT INTO friendship(iduser1, iduser2)
 INSERT INTO friendship(iduser1, iduser2)
 	VALUES (1, 3);
 
+INSERT INTO friendRequest(sender, receiver)
+	VALUES (3, 2);
 
 INSERT INTO difficultylevel(name, nbdaysbronze, nbdayssilver, nbdaysgold, nbdaysdiamond, score)
 	VALUES ('easy', 7, 14, 30, 90, 10);
