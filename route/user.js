@@ -97,7 +97,8 @@ router.get('/:id', UserControleur.getUserById);
  *          500:
  *              description: Erreur serveur
  */
-router.get(`/`, JWTMiddleWare.identification, AuthoMiddleware.mustBeAdmin, UserControleur.getAllUsers);
+//router.get(`/`, JWTMiddleWare.identification, AuthoMiddleware.mustBeAdmin, UserControleur.getAllUsers);
+router.get(`/`, JWTMiddleWare.identification, UserControleur.getAllUsers);
 /**
  * @swagger
  * /user/:
